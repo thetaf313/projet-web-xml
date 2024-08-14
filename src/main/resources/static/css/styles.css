@@ -1,0 +1,26 @@
+
+a {
+    text-decoration: none !important;
+}
+/*a:active {*/
+/*    border: 1px solid rgba(0, 0, 0, 0.1);*/
+/*}*/
+
+body {
+    background-color: #f4f5f6;
+}
+
+/* nav styles */
+#logo {
+    font-size: 18px;
+    border: 1px solid lightgrey;
+    padding: 5px 15px;
+
+}
+#list li {
+    font-family: "Open Sans";
+}
+
+main {
+    margin-top: 75px;
+}

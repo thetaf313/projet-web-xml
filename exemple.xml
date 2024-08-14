@@ -1,0 +1,17 @@
+
+<filieres>
+    <filiere id="1">
+        <libelle>..</libelle>
+        <classes>
+            <classe id="">
+                <libelle>...</libelle>
+                <code></code>
+                ...
+            </classe>
+            <classe></classe>
+
+        </classes>
+    </filiere>
+    ...
+
+</filieres>

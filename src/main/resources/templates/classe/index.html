@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.1/css/bootstrap.min.css" integrity="sha512-Ez0cGzNzHR1tYAv56860NLspgUGuQw16GiOOp/I2LuTmpSK9xDXlgJz3XN4cnpXWDmkNBKXR/VDMTCnAaEooxA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/fontawesome.min.css" integrity="sha512-B46MVOJpI6RBsdcU307elYeStF2JKT87SsHZfRSkjVi4/iZ3912zXi45X5/CBr/GbCyLx6M1GQtTKYRd52Jxgw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <title>Title</title>
+</head>
+<body>
+<header class="p-3 bg-dark text-white fixed-top">
+    <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            <a id="logo" th:href="@{/classes}" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+                SCOLARITE
+            </a>
+
+            <ul id="list" class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 mx-3">
+                <li><a th:href="@{/filieres}" class="nav-link px-3 text-info">Filiere</a></li>
+                <li><a th:href="@{/classes}" class="nav-link px-3 text-info">Classe</a></li>
+            </ul>
+
+            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+                <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
+            </form>
+
+            <div class="text-end">
+                <button type="button" class="btn btn-outline-light me-2">Login</button>
+                <button type="button" class="btn btn-warning">Sign-up</button>
+            </div>
+        </div>
+    </div>
+</header>
+<main>
+    <div class="container">
+        <h1 class="text-center text-dark">Classes</h1>
+        <div class="mb-3">
+            <a th:href="@{/classes/add}" class="btn btn-primary btn-lg"><i class="fas fa-plus-circle"></i> Add Classe</a>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <table class="table table-responsive-xl table-dark">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Libelle</th>
+                        <th scope="col">Code</th>
+                        <th scope="col">Frais Inscription</th>
+                        <th scope="col">Mensualite</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Master 1 Genie Logiciel</td>
+                        <td>M1 GL</td>
+                        <td>100000</td>
+                        <td>80000</td>
+                        <td>
+                            <a href="#" class="px-2"><i class="fa-solid fa-pen-to-square fa-lg" style="color: #74C0FC;"></i></a>
+                            <a href="#" class="px-2"><i class="fa-regular fa-eye fa-lg" style="color: #FFD43B;"></i></a>
+                            <a href="#" class="px-2"><i class="fa-regular fa-trash-can fa-lg" style="color: #d12e2e;"></i></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>Master 1 MIAGE</td>
+                        <td>M1 MIAGE</td>
+                        <td>100000</td>
+                        <td>80000</td>
+                        <td>
+                            <a href="#" class="px-2"><i class="fa-solid fa-pen-to-square fa-lg" style="color: #74C0FC;"></i></a>
+                            <a href="#" class="px-2"><i class="fa-regular fa-eye fa-lg" style="color: #FFD43B;"></i></a>
+                            <a href="#" class="px-2"><i class="fa-regular fa-trash-can fa-lg" style="color: #d12e2e;"></i></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td>Master 1 Systemes Reseaux et Telecoms</td>
+                        <td>M1 SRT</td>
+                        <td>100000</td>
+                        <td>80000</td>
+                        <td>
+                            <a href="#" class="px-2"><i class="fa-solid fa-pen-to-square fa-lg" style="color: #74C0FC;"></i></a>
+                            <a href="#" class="px-2"><i class="fa-regular fa-eye fa-lg" style="color: #FFD43B;"></i></a>
+                            <a href="#" class="px-2"><i class="fa-regular fa-trash-can fa-lg" style="color: #d12e2e;"></i></a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.1/js/bootstrap.min.js" integrity="sha512-EKWWs1ZcA2ZY9lbLISPz8aGR2+L7JVYqBAYTq5AXgBkSjRSuQEGqWx8R1zAX16KdXPaCjOCaKE8MCpU0wcHlHA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/js/all.min.js" integrity="sha512-6sSYJqDreZRZGkJ3b+YfdhB3MzmuP9R7X1QZ6g5aIXhRvR1Y/N/P47jmnkENm7YL3oqsmI6AK+V6AD99uWDnIw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</body>
+</html>
