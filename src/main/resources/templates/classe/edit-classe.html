@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.1/css/bootstrap.min.css" integrity="sha512-Ez0cGzNzHR1tYAv56860NLspgUGuQw16GiOOp/I2LuTmpSK9xDXlgJz3XN4cnpXWDmkNBKXR/VDMTCnAaEooxA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/fontawesome.min.css" integrity="sha512-B46MVOJpI6RBsdcU307elYeStF2JKT87SsHZfRSkjVi4/iZ3912zXi45X5/CBr/GbCyLx6M1GQtTKYRd52Jxgw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="/static/css/styles.css">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
     <title>Title</title>
 </head>
 <body>
@@ -34,27 +34,41 @@
 </header>
 <main>
     <div class="container">
-        <h1 class="text-center text-dark">Classe</h1>
+        <h1 class="text-md-center">Classe</h1>
+        <div class="row flex-row justify-content-center align-content-center">
+            <div class="col-6 p-3">
+                <form action="#" th:action="@{/classes/update/{id} (id=${classe.id})}" th:object="${classe}" method="post">
+                    <div class="mb-3">
+                        <label for="libelle" class="form-label">Libelle</label>
+                        <input type="text" th:field="*{libelle}" class="form-control" id="libelle" aria-describedby="emailHelp">
+                    </div>
+                    <div class="mb-3">
+                        <label for="code" class="form-label">Code</label>
+                        <input type="text" th:field="*{code}" class="form-control" id="code">
+                    </div>
+                    <div class="mb-3">
+                        <label for="fraisInscription" class="form-label">Frais Inscription</label>
+                        <input type="text" th:field="*{fraisInscription}" class="form-control" id="fraisInscription">
+                    </div>
+                    <div class="mb-3">
+                        <label for="mensualite" class="form-label">Mensualite</label>
+                        <input type="text" th:field="*{mensualite}" class="form-control" id="mensualite">
+                    </div>
+                    <div class="mb-3">
+                        <select class="form-select" th:field="*{filiere.id}" aria-label="Default select example">
+                            <option value="0" disabled selected>Sélectionnez une filière</option>
+                            <option th:each="filiere : ${filieres}" th:value="${filiere.id}" th:text="${filiere.libelle}"></option>
+                        </select>
+                    </div>
 
-        <div class="d-flex justify-content-center">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
 
-            <div class="card" style="width: 400px;">
-                <div class="card-img bg-dark">
-                    <img class="card-img-top" src="/static/img/img-classe.svg" alt="Card image" width="100" height="200">
-                </div>
-                <div class="card-body">
-                    <h4 class="card-title">Libelle: <span class="float-end">...</span></h4>
-                    <p class="card-text">Code: <span class="float-end">...</span></p>
-                    <p class="card-text">Frais Inscription: <span class="float-end">...</span></p>
-                    <p class="card-text">Mensualite: <span class="float-end">...</span></p>
-                    <p class="card-text">Filiere: <span class="float-end">...</span></p>
-
-                    <a href="#" class="btn btn-primary">Edit</a>
-                </div>
             </div>
 
         </div>
     </div>
+
 </main>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.1/js/bootstrap.min.js" integrity="sha512-EKWWs1ZcA2ZY9lbLISPz8aGR2+L7JVYqBAYTq5AXgBkSjRSuQEGqWx8R1zAX16KdXPaCjOCaKE8MCpU0wcHlHA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>

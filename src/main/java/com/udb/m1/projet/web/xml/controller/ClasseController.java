@@ -2,67 +2,82 @@ package com.udb.m1.projet.web.xml.controller;
 
 import com.udb.m1.projet.web.xml.model.Classe;
 import com.udb.m1.projet.web.xml.model.Filiere;
-import com.udb.m1.projet.web.xml.model.Filieres;
-
+import com.udb.m1.projet.web.xml.service.ClasseServiceImpl;
+import com.udb.m1.projet.web.xml.service.FiliereServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.PropertyException;
-import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 @RequestMapping("/classes")
 public class ClasseController {
 
-    private static final String XML_FILE = "filiere-classe.xml";
+    private final ClasseServiceImpl classeService;
+    private final FiliereServiceImpl filiereService;
+
+    public ClasseController(ClasseServiceImpl classeService, FiliereServiceImpl filiereService) {
+        this.classeService = classeService;
+        this.filiereService = filiereService;
+    }
+
 
     @GetMapping
     public String index(Model model) {
-        // call services
+        List<Classe> classes = classeService.getAllClasses();
+        model.addAttribute("classes", classes);
         return "classe/index";
     }
 
     @GetMapping("/add")
     public String add(Model model) {
         model.addAttribute("classe", new Classe());
-        return "classe/addClasse";
+
+        // Récupérer la liste des filières disponibles
+        List<Filiere> filieres = filiereService.getAllFilieres();
+        model.addAttribute("filieres", filieres);
+        return "classe/add-classe";
     }
 
     @PostMapping
     public String create(@ModelAttribute Classe classe) {
-        //
-        Filiere f = new Filiere(Long.parseLong(classe.getFiliere().getLibelle().split("-")[0]),
-                classe.getFiliere().getLibelle().split("-")[1], null);
-        classe.setFiliere(f);
+        classeService.addClasseToFiliere(classe.getFiliere().getId(), classe);
+        return "redirect:/classes";
+    }
 
-        // test
-        List<Filiere> filieres = new ArrayList<>();
-        filieres.add(f);
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable Long id, Model model) {
+        Classe classe = classeService.getClasseById(id);
+        Filiere filiere = filiereService.getFiliere(classe.getFiliere().getId());
+        List<Filiere> filieres = filiereService.getAllFilieres();
+        model.addAttribute("classe", classe);
+        model.addAttribute("filiere", filiere);
+        model.addAttribute("filieres", filieres);
 
-        Filieres rootFilieres = new Filieres();
-        rootFilieres.setFilieres(filieres);
+        return "classe/edit-classe";
+    }
 
-        try {
+    @PostMapping("/update/{id}")
+    public String update(@PathVariable Long id, @ModelAttribute Classe classe) {
+        classeService.updateClasse(id, classe);
+        return "redirect:/classes";
+    }
 
-            JAXBContext jaxbContext = JAXBContext.newInstance(Filieres.class);
-            Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
-            jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-            jaxbMarshaller.marshal(rootFilieres, System.out);
-            jaxbMarshaller.marshal(rootFilieres, new File(XML_FILE));
+    @GetMapping("/view/{id}")
+    public String view(@PathVariable Long id, Model model) {
+        Classe classe = classeService.getClasseById(id);
+        Filiere filiere = filiereService.getFiliere(classe.getFiliere().getId());
 
-        } catch (JAXBException e) {
-            throw new RuntimeException(e);
-        }
+        model.addAttribute("classe", classe);
+        model.addAttribute("filiere", filiere);
 
-        return "classe/addClasse";
+        return "classe/show-classe";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable Long id) {
+        classeService.deleteClasse(id);
+        return "redirect:/classes";
     }
 }

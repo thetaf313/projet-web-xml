@@ -41,56 +41,40 @@
 
         <div class="row">
             <div class="col-lg-12">
-                <table class="table table-responsive-xl table-dark">
-                    <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Libelle</th>
-                        <th scope="col">Code</th>
-                        <th scope="col">Frais Inscription</th>
-                        <th scope="col">Mensualite</th>
-                        <th scope="col">Actions</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Master 1 Genie Logiciel</td>
-                        <td>M1 GL</td>
-                        <td>100000</td>
-                        <td>80000</td>
-                        <td>
-                            <a href="#" class="px-2"><i class="fa-solid fa-pen-to-square fa-lg" style="color: #74C0FC;"></i></a>
-                            <a href="#" class="px-2"><i class="fa-regular fa-eye fa-lg" style="color: #FFD43B;"></i></a>
-                            <a href="#" class="px-2"><i class="fa-regular fa-trash-can fa-lg" style="color: #d12e2e;"></i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Master 1 MIAGE</td>
-                        <td>M1 MIAGE</td>
-                        <td>100000</td>
-                        <td>80000</td>
-                        <td>
-                            <a href="#" class="px-2"><i class="fa-solid fa-pen-to-square fa-lg" style="color: #74C0FC;"></i></a>
-                            <a href="#" class="px-2"><i class="fa-regular fa-eye fa-lg" style="color: #FFD43B;"></i></a>
-                            <a href="#" class="px-2"><i class="fa-regular fa-trash-can fa-lg" style="color: #d12e2e;"></i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Master 1 Systemes Reseaux et Telecoms</td>
-                        <td>M1 SRT</td>
-                        <td>100000</td>
-                        <td>80000</td>
-                        <td>
-                            <a href="#" class="px-2"><i class="fa-solid fa-pen-to-square fa-lg" style="color: #74C0FC;"></i></a>
-                            <a href="#" class="px-2"><i class="fa-regular fa-eye fa-lg" style="color: #FFD43B;"></i></a>
-                            <a href="#" class="px-2"><i class="fa-regular fa-trash-can fa-lg" style="color: #d12e2e;"></i></a>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+                <div th:switch="${classes}">
+                    <h2 th:case="null">Aucune Classe trouvée</h2>
+                    <div th:case="*">
+                        <table class="table table-responsive-xl table-dark">
+                            <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Libelle</th>
+                                <th scope="col">Code</th>
+                                <th scope="col">Frais Inscription</th>
+                                <th scope="col">Mensualite</th>
+                                <th scope="col">Filiere</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="classe : ${classes}">
+                                <td th:text="${classe.id}"></td>
+                                <td th:text="${classe.libelle}"></td>
+                                <td th:text="${classe.code}"></td>
+                                <td th:text="${classe.fraisInscription}"></td>
+                                <td th:text="${classe.mensualite}"></td>
+                                <td th:text="${classe.filiere.libelle}"></td>
+                                <td>
+                                    <a href="#" th:href="@{/classes/edit/{id} (id=${classe.id})}" class="px-2"><i class="fa-solid fa-pen-to-square fa-lg" style="color: #74C0FC;"></i></a>
+                                    <a href="#" th:href="@{/classes/view/{id} (id=${classe.id})}" class="px-2"><i class="fa-regular fa-eye fa-lg" style="color: #FFD43B;"></i></a>
+                                    <a href="#" th:href="@{/classes/delete/{id} (id=${classe.id})}" class="px-2"><i class="fa-regular fa-trash-can fa-lg" style="color: #d12e2e;"></i></a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>

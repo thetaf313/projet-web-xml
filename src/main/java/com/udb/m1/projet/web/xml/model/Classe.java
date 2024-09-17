@@ -12,17 +12,17 @@ import lombok.NoArgsConstructor;
 
 public class Classe {
 
-    @XmlAttribute
+//    @XmlAttribute
     private long id;
 
-    @XmlElement
+//    @XmlElement
     private String libelle;
 
-    @XmlElement
+//    @XmlElement
     private String code;
-    @XmlElement
+//    @XmlElement
     private int fraisInscription;
-    @XmlElement
+//    @XmlElement
     private int mensualite;
 
     private Filiere filiere;

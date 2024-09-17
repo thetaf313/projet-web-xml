@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?>
 
 <filieres>
     <filiere id="1">
@@ -5,13 +6,15 @@
         <classes>
             <classe id="">
                 <libelle>...</libelle>
-                <code></code>
+                <code>...</code>
+                <fraisInscription>...</fraisInscription>
+                <mensualite>...</mensualite>
+            </classe>
+            <classe>
                 ...
             </classe>
-            <classe></classe>
 
         </classes>
     </filiere>
     ...
-
 </filieres>

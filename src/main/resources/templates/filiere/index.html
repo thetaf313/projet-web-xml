@@ -50,31 +50,13 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Genie Logiciel</td>
+                    <tr th:each="filiere : ${filieres}">
+                        <td th:text="${filiere.id}"></td>
+                        <td th:text="${filiere.libelle}"></td>
                         <td>
-                            <a href="#" class="px-2"><i class="fa-solid fa-pen-to-square fa-lg" style="color: #74C0FC;"></i></a>
-                            <a href="#" class="px-2"><i class="fa-regular fa-eye fa-lg" style="color: #FFD43B;"></i></a>
-                            <a href="#" class="px-2"><i class="fa-regular fa-trash-can fa-lg" style="color: #d12e2e;"></i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>MIAGE</td>
-                        <td>
-                            <a href="#" class="px-2"><i class="fa-solid fa-pen-to-square fa-lg" style="color: #74C0FC;"></i></a>
-                            <a href="#" class="px-2"><i class="fa-regular fa-eye fa-lg" style="color: #FFD43B;"></i></a>
-                            <a href="#" class="px-2"><i class="fa-regular fa-trash-can fa-lg" style="color: #d12e2e;"></i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Systemes Reseaux et Telecoms</td>
-                        <td>
-                            <a href="#" class="px-2"><i class="fa-solid fa-pen-to-square fa-lg" style="color: #74C0FC;"></i></a>
-                            <a href="#" class="px-2"><i class="fa-regular fa-eye fa-lg" style="color: #FFD43B;"></i></a>
-                            <a href="#" class="px-2"><i class="fa-regular fa-trash-can fa-lg" style="color: #d12e2e;"></i></a>
+                            <a href="#" th:href="@{/filieres/edit/{id} (id=${filiere.id})}" class="px-2"><i class="fa-solid fa-pen-to-square fa-lg" style="color: #74C0FC;"></i></a>
+                            <a href="#" th:href="@{/filieres/view/{id} (id=${filiere.id})}" class="px-2"><i class="fa-regular fa-eye fa-lg" style="color: #FFD43B;"></i></a>
+                            <a href="#" th:href="@{/filieres/delete/{id} (id=${filiere.id})}" class="px-2"><i class="fa-regular fa-trash-can fa-lg" style="color: #d12e2e;"></i></a>
                         </td>
                     </tr>
                     </tbody>

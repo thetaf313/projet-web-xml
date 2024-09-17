@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.1/css/bootstrap.min.css" integrity="sha512-Ez0cGzNzHR1tYAv56860NLspgUGuQw16GiOOp/I2LuTmpSK9xDXlgJz3XN4cnpXWDmkNBKXR/VDMTCnAaEooxA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/fontawesome.min.css" integrity="sha512-B46MVOJpI6RBsdcU307elYeStF2JKT87SsHZfRSkjVi4/iZ3912zXi45X5/CBr/GbCyLx6M1GQtTKYRd52Jxgw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" href="/css/styles.css" th:href="@{/css/styles.css}">
     <title>Title</title>
 </head>
 <body>
@@ -33,21 +34,29 @@
 </header>
 <main>
     <div class="container">
-        <h1 class="text-center text-dark">Filiere</h1>
+        <h1 class="text-center text-dark mb-3">Details Classe</h1>
 
-        <div class="d-flex justify-content-center">
-
-            <div class="card" style="width: 400px;">
-                <div class="card-img bg-dark">
-                    <img class="card-img-top" src="/static/img/img-filiere.jpg" alt="Card image" width="100" height="250">
-                </div>
-                <div class="card-body">
-                    <h4 class="card-title">Libelle: <span class="float-end">...</span></h4>
-
-                    <a href="#" class="btn btn-primary mt-3">Edit</a>
+        <div class="row bg-dark rounded-3">
+            <div class="col-md-6 p-3">
+                <div class="card-img">
+                    <img class="card-img-top w-100 h-100" src="/img/img-classe.svg" th:src="@{/img/img-classe.svg}" alt="Card image" />
                 </div>
             </div>
+            <div class="col-md-6 p-3">
+                <div class="card bg-dark" style="width: 450px;" th:object="${classe}">
 
+                    <div class="card-body text-light">
+                        <h5 class="card-title p-2">Libelle: <span class="float-end fw-bold" th:text="*{libelle}"></span></h5>
+                        <h6 class="card-title p-2">Code: <span class="float-end fw-bold" th:text="*{code}"></span></h6>
+                        <h6 class="card-title p-2">Frais Inscription: <span class="float-end fw-bold" th:text="*{fraisInscription}"></span></h6>
+                        <h6 class="card-title p-2">Mensualite: <span class="float-end fw-bold" th:text="*{mensualite}"></span></h6>
+                        <h6 class="card-title p-2">Filiere: <span class="float-end fw-bold" th:text="*{filiere.libelle}"></span></h6>
+                        <a href="#" th:href="@{/classes/edit/{id} (id=${classe.id})}" class="btn btn-primary mt-3">Edit</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-center">
         </div>
     </div>
 </main>

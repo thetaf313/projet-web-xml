@@ -1,13 +1,9 @@
-
-a {
-    text-decoration: none !important;
-}
-/*a:active {*/
-/*    border: 1px solid rgba(0, 0, 0, 0.1);*/
-/*}*/
+/* --- */
 
 body {
-    background-color: #f4f5f6;
+    /*background-color: #D3D5D4;*/
+    background-color: #58788D;
+    /*background-color: #283A4C;*/
 }
 
 /* nav styles */
@@ -17,10 +13,63 @@ body {
     padding: 5px 15px;
 
 }
+
+ul li a {
+    background: none !important;
+    color: lightgrey !important;
+    transition: 400ms;
+}
+
+ul li a:hover {
+    border-bottom: 1px solid #fff !important;
+}
+
 #list li {
     font-family: "Open Sans";
 }
 
+/* Main */
 main {
-    margin-top: 75px;
+    margin-top: 80px;
 }
+
+.row .card-img {
+    width: 350px;
+    height: 350px;
+    /*border: 1px solid #fff;*/
+}
+
+.row .card-img .card-img-top {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+
+
+/* Utility classes*/
+a {
+    text-decoration: none !important;
+    padding: 5px 20px !important;
+}
+
+.card {
+    width: 450px;
+    border: 1px solid #183882;
+    /*box-shadow: 5px 5px 1px 5px #670D6D;*/
+    box-shadow: 5px 5px 1px 5px #183882;
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+form input {
+    background: #c9c9c9 !important;
+}
+
+form select {
+    background: #3d3c3c !important;
+    color: lightgrey !important;
+}
+
+/*.b-primary {*/
+/*    background-color: #873F97 !important;*/
+/*}*/

@@ -34,20 +34,24 @@
 </header>
 <main>
     <div class="container">
-        <h1 class="text-md-center mb-3">Form Filiere</h1>
-        <div class="row flex-row justify-content-center align-content-center">
-            <div class="col-6 p-3">
-                <form action="#" th:action="@{/filieres}" th:object="${filiere}" method="post">
-                    <div class="mb-3">
-                        <label for="libelle" class="form-label">Libelle</label>
-                        <input type="text" th:field="*{libelle}" class="form-control" id="libelle" aria-describedby="emailHelp">
-                    </div>
+        <h1 class="text-center text-light mb-3">Details Filiere</h1>
 
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
+        <div class="row bg-dark rounded-3">
+            <div class="col-md-6 p-3">
+                <div class="card-img">
+                    <img class="card-img-top w-100 h-100" th:src="@{/img/img-filiere.jpg}" alt="Card image">
+                </div>
+            </div>
+            <div class="col-md-6 p-3">
+                <div class="card bg-dark text-light" style="width: 450px;" th:object="${filiere}">
+
+                    <div class="card-body">
+                        <h5 class="card-title">Libelle: <span class="float-end" th:text="*{libelle}"></span></h5>
+                        <a href="#" th:href="@{/filieres/edit/{id} (id=${filiere.id})}" class="btn btn-outline-primary mt-3">Edit</a>
+                    </div>
+                </div>
             </div>
         </div>
-
     </div>
 </main>
 

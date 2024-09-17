@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<filieres>
+    <filiere id="2">
+        <libelle>Génie logiciel</libelle>
+        <classes>
+            <classe id="2">
+                <libelle>Master 1 Génie Logiciel</libelle>
+                <code>M1 GL</code>
+                <fraisInscription>100000</fraisInscription>
+                <mensualite>80000</mensualite>
+            </classe>
+        </classes>
+    </filiere>
+                    
+    
+    
+    
+    <filiere id="3">
+                                        
+        
+        
+        
+        <libelle>Miage</libelle>
+                                        
+        
+        
+        
+        <classes>
+                        
+            <classe id="4">
+                                
+                <libelle>Master 1 Miage</libelle>
+                                
+                <code>M1 MIAGE</code>
+                                
+                <fraisInscription>100000</fraisInscription>
+                                
+                <mensualite>80000</mensualite>
+                            
+            </classe>
+                    
+        </classes>
+                                    
+    
+    
+    
+    </filiere>
+                    
+    
+    
+    
+    <filiere id="4">
+                                        
+        
+        
+        
+        <libelle>Systèmes, Réseaux et Télécoms</libelle>
+                                        
+        
+        
+        
+        <classes/>
+                                    
+    
+    
+    
+    </filiere>
+                
+
+
+
+</filieres>

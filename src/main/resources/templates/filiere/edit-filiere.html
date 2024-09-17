@@ -34,43 +34,21 @@
 </header>
 <main>
     <div class="container">
-        <h1 class="text-md-center">Form Classe</h1>
+        <h1 class="text-md-center mb-3">Form Filiere</h1>
         <div class="row flex-row justify-content-center align-content-center">
             <div class="col-6 p-3">
-                <form action="#" th:action="@{/classes}" th:object="${classe}" method="post">
+                <form action="#" th:action="@{/filieres/update/{id} (id=${filiere.id})}" th:object="${filiere}" method="post">
                     <div class="mb-3">
                         <label for="libelle" class="form-label">Libelle</label>
                         <input type="text" th:field="*{libelle}" class="form-control" id="libelle" aria-describedby="emailHelp">
                     </div>
-                    <div class="mb-3">
-                        <label for="code" class="form-label">Code</label>
-                        <input type="text" th:field="*{code}" class="form-control" id="code">
-                    </div>
-                    <div class="mb-3">
-                        <label for="fraisInscription" class="form-label">Frais Inscription</label>
-                        <input type="text" th:field="*{fraisInscription}" class="form-control" id="fraisInscription">
-                    </div>
-                    <div class="mb-3">
-                        <label for="mensualite" class="form-label">Mensualite</label>
-                        <input type="text" th:field="*{mensualite}" class="form-control" id="mensualite">
-                    </div>
-                    <div class="mb-3">
-                        <select class="form-select" th:field="*{filiere.libelle}" aria-label="Default select example">
-                            <option value="0" selected>Selectionner une filiere</option>
-                            <option value="1-one">One</option>
-                            <option value="2-two">Two</option>
-                            <option value="3-three">Three</option>
-                        </select>
-                    </div>
 
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
-
             </div>
-
         </div>
-    </div>
 
+    </div>
 </main>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.1/js/bootstrap.min.js" integrity="sha512-EKWWs1ZcA2ZY9lbLISPz8aGR2+L7JVYqBAYTq5AXgBkSjRSuQEGqWx8R1zAX16KdXPaCjOCaKE8MCpU0wcHlHA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>

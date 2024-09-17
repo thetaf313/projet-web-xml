@@ -12,11 +12,11 @@ import java.util.List;
 @NoArgsConstructor
 public class Filiere {
 
-    @XmlAttribute
+//    @XmlAttribute
     private long id;
-    @XmlElement
+//    @XmlElement
     private String libelle;
-    @XmlElement
+//    @XmlElement
     private List<Classe> classes;
 
     public long getId() {
