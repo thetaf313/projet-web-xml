@@ -10,5 +10,5 @@ public interface ClasseService {
     List<Classe> getAllClassesByFiliere(Long filiereId);
     void addClasseToFiliere(Long filiereId, Classe classe);
     void updateClasse(Long filiereId, Classe newClasse);
-    boolean deleteClasse(Long classeId);
+    void deleteClasse(Long classeId);
 }

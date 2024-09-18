@@ -2,10 +2,8 @@ package com.udb.m1.projet.web.xml.service;
 
 import com.udb.m1.projet.web.xml.model.Classe;
 import com.udb.m1.projet.web.xml.model.Filiere;
+import com.udb.m1.projet.web.xml.model.Filieres;
 import org.springframework.stereotype.Service;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,136 +19,102 @@ public class FiliereServiceImpl implements FiliereService {
         this.generatorService = generatorService;
     }
 
-
     @Override
-    // Lister les filieres
     public List<Filiere> getAllFilieres() {
+        // Récupérer toutes les filières depuis le fichier xml
+        Filieres filieres = xmlService.load();
 
-        List<Filiere> filieres = new ArrayList<>();
-        try {
-            Document document = xmlService.getDocument();
-            NodeList filiereNodes = document.getElementsByTagName("filiere");
-
-            for (int i = 0; i < filiereNodes.getLength(); i++) {
-                Element filiereElement = (Element) filiereNodes.item(i);
-                Long id = Long.parseLong(filiereElement.getAttribute("id"));
-                String libelle =filiereElement.getElementsByTagName("libelle")
-                        .item(0).getTextContent();
-
-                // Créer une nouvelle instance de Filiere
-                Filiere filiere = new Filiere(id, libelle, new ArrayList<>());
-
-                // Ajouter à la liste
-                filieres.add(filiere);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (filieres.getFilieres() == null) {
+            filieres.setFilieres(new ArrayList<>());
         }
 
-        return filieres;
+        return filieres.getFilieres();
+    }
 
+    @Override
+    public Filiere getFiliere(Long filiereId) {
+        // Récupérer toutes les filières depuis le fichier xml
+        Filieres filieres = xmlService.load();
+
+        if (filieres == null || filieres.getFilieres() == null) {
+            throw new RuntimeException("Erreur lors de la récupération des données !");
+        }
+
+        return filieres.getFilieres().stream()
+                .filter(filiere -> filiere.getId() == filiereId)  // Utiliser equals() pour comparer les Long
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException(
+                        "Aucune filière trouvée avec l'id " + filiereId)
+                );
     }
 
     @Override
     public void addFiliere(Filiere filiere) {
-        String _filiere = "filiere";
+        // Récupérer toutes les filières depuis le fichier xml
+        Filieres filieres = xmlService.load();
 
-        try {
-            Document document = xmlService.getDocument();
-            Element root = document.getDocumentElement();
-
-            Element filiereElement = document.createElement(_filiere);
-            filiereElement.setAttribute(
-                    "id", String.valueOf(generatorService.generateId(_filiere))
-            );
-
-            Element libelleElement = document.createElement("libelle");
-            libelleElement.setTextContent(filiere.getLibelle());
-            filiereElement.appendChild(libelleElement);
-
-            Element classesElement = document.createElement("classes");
-            filiereElement.appendChild(classesElement);
-
-            root.appendChild(filiereElement);
-
-            xmlService.saveDocument(document);
-
-        } catch (Exception e) {
-            throw new RuntimeException(e.getMessage());
+        // Si le fichier est vide, initialiser Filieres
+        if (filieres == null) {
+            filieres = new Filieres();
         }
+
+        // Initialiser la liste des filières
+        if (filieres.getFilieres() == null) {
+            filieres.setFilieres(new ArrayList<>());
+        }
+
+        // Générer un nouvel ID pour la filière
+        int newId = generatorService.generateId("filiere");
+        if (newId != -1) {
+            filiere.setId(newId);
+            filieres.getFilieres().add(filiere);  // Ajouter la nouvelle filière
+        } else {
+            throw new RuntimeException("Erreur lors de la génération de l'id pour filière");
+        }
+
+        xmlService.save(filieres);
     }
 
     @Override
-    // Mettre à jour une filiere
     public void updateFiliere(Long filiereId, Filiere newFiliere) {
+        // Récupérer toutes les filières depuis le fichier xml
+        Filieres listFilieres = xmlService.load();
 
-        try {
-            Document document = xmlService.getDocument();
-            NodeList filieres = document.getElementsByTagName("filiere");
-
-            for (int i = 0; i < filieres.getLength(); i++) {
-                Element filiere = (Element) filieres.item(i);
-                if (Long.parseLong(filiere.getAttribute("id")) == filiereId) {
-                    Element libelleElement = (Element) filiere.getElementsByTagName("libelle")
-                            .item(0);
-                    libelleElement.setTextContent(newFiliere.getLibelle());
-                    break;
-                }
-            }
-
-            xmlService.saveDocument(document);
-        } catch (Exception e) {
-            throw new RuntimeException(e.getMessage());
+        if (listFilieres == null || listFilieres.getFilieres() == null) {
+            throw new RuntimeException("Erreur lors de la récupération des données !");
         }
 
-    }
-
-    // Recuperer une filiere
-    public Filiere getFiliere(Long filiereId) {
-
-        try {
-            Document document = xmlService.getDocument();
-            NodeList filiereNodes = document.getElementsByTagName("filiere");
-
-            for (int i = 0; i < filiereNodes.getLength(); i++) {
-                Element filiereElement = (Element) filiereNodes.item(i);
-                if (Long.parseLong(filiereElement.getAttribute("id")) == filiereId) {
-                    String libelle = filiereElement.getElementsByTagName("libelle")
-                            .item(0).getTextContent();
-                    Filiere filiere = new Filiere(filiereId, libelle, new ArrayList<>());
-                    // optionel - recuperer les classes
-
-                    return filiere;
-                }
+        for (Filiere filiere : listFilieres.getFilieres()) {
+            if (filiere.getId() == filiereId) {
+                // Mettre à jour les informations de la filière
+                filiere.setLibelle(newFiliere.getLibelle());
+                break;
             }
-            return null; // Filière non trouvée
-        } catch (Exception e) {
-            throw new RuntimeException(e.getMessage());
         }
 
+        // Sauvegarder
+        xmlService.save(listFilieres);
     }
 
-
-    // Supprimer une filiere
     @Override
-    public boolean deleteFiliere(Long filiereId) {
+    public void deleteFiliere(Long filiereId) {
+        // Récupérer toutes les filières depuis le fichier xml
+        Filieres filieres = xmlService.load();
 
-        try {
-            Document document = xmlService.getDocument();
-            NodeList filiereNodes = document.getElementsByTagName("filiere");
-
-            for (int i = 0; i < filiereNodes.getLength(); i++) {
-                Element filiereElement = (Element) filiereNodes.item(i);
-                if (Long.parseLong(filiereElement.getAttribute("id")) == filiereId) {
-                    filiereElement.getParentNode().removeChild(filiereElement);
-                    xmlService.saveDocument(document);
-                    return true; // Filière supprimée
-                }
-            }
-            return false; // Filière non trouvée
-        } catch (Exception e) {
-            throw new RuntimeException(e.getMessage());
+        if (filieres == null || filieres.getFilieres() == null) {
+            throw new RuntimeException("Erreur lors de la récupération des données !");
         }
+
+        // Supprimer la filière correspondante
+        boolean removed = filieres.getFilieres()
+                .removeIf(filiere -> filiere.getId() == filiereId);
+
+        // Vérifier si la suppression a réussi
+        if (!removed) {
+            throw new RuntimeException("Aucune filière trouvée avec l'id " + filiereId);
+        }
+
+        // Sauvegarder les modifications
+        xmlService.save(filieres);
     }
 }

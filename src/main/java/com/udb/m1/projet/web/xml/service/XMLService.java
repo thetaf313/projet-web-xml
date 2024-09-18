@@ -1,55 +1,64 @@
 package com.udb.m1.projet.web.xml.service;
 
-import com.udb.m1.projet.web.xml.model.Classe;
-import com.udb.m1.projet.web.xml.model.Filiere;
-import org.springframework.stereotype.Component;
-import org.w3c.dom.*;
-import javax.xml.parsers.*;
-import javax.xml.transform.*;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
+import com.udb.m1.projet.web.xml.model.Filieres;
+import jakarta.annotation.PostConstruct;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Marshaller;
+import jakarta.xml.bind.Unmarshaller;
+import org.springframework.stereotype.Service;
+
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.FileWriter;
+import java.io.IOException;
 
-@Component
+@Service
 public class XMLService {
+    private static final String FILE_PATH = "scolarite.xml";
 
-    private static final String FILE_PATH = "filiere_classe.xml";
+    /**
+     * Vérifie si le fichier XML existe, sinon en crée un nouveau.
+     * Ou Charge les données des filières depuis le fichier XML.
+     * @return une instance de {@link Filieres} ou null en cas d'erreur.
+     */
+    public Filieres load() {
+        try {
+            File file = new File(FILE_PATH);
+            if (!file.exists()) {
+                System.out.println("Fichier scolarite.xml introuvable. Création d'un nouveau fichier...");
+                createXMLFile();
+            }
 
-    public Document getDocument() throws Exception {
-        File file = new File(FILE_PATH);
-        if (!file.exists()) {
-            DocumentBuilderFactory documentFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder documentBuilder = documentFactory.newDocumentBuilder();
-            Document document = documentBuilder.newDocument();
-            Element root = document.createElement("filieres");
-            document.appendChild(root);
-            saveDocument(document);
+            JAXBContext jaxbContext = JAXBContext.newInstance(Filieres.class);
+            Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+            return (Filieres) unmarshaller.unmarshal(file);
+        } catch (IOException | JAXBException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Erreur lors du chargement des données depuis le fichier XML", e);
         }
-        return loadDocument();
     }
 
-    public Document loadDocument() throws Exception {
-        DocumentBuilderFactory documentFactory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder documentBuilder = documentFactory.newDocumentBuilder();
-        return documentBuilder.parse(new File(FILE_PATH));
+    /**
+     * Enregistre les données de filières dans le fichier XML.
+     * @param filieres les données à enregistrer
+     */
+    public void save(Filieres filieres) {
+        try {
+            JAXBContext jaxbContext = JAXBContext.newInstance(Filieres.class);
+            Marshaller marshaller = jaxbContext.createMarshaller();
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);  // Formatage pour une sortie lisible
+            marshaller.marshal(filieres, new File(FILE_PATH));  // Enregistrement dans le fichier
+        } catch (JAXBException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Erreur lors de l'enregistrement des données dans le fichier XML", e);
+        }
     }
 
-    public void saveDocument(Document document) throws Exception {
-        TransformerFactory transformerFactory = TransformerFactory.newInstance();
-        Transformer transformer = transformerFactory.newTransformer();
-
-        // Activer l'indentation
-        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-
-        // Spécifier la taille de l'indentation (nombre d'espaces)
-        transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
-
-        DOMSource domSource = new DOMSource(document);
-        StreamResult streamResult = new StreamResult(new File(FILE_PATH));
-        transformer.transform(domSource, streamResult);
+    /**
+     * Crée un fichier XML avec une structure vide de filières.
+     */
+    public void createXMLFile() throws JAXBException, IOException {
+        Filieres filieres = new Filieres();  // Crée une structure de filières vide
+        save(filieres);  // Enregistre cette structure vide dans le fichier
     }
-
 }
-

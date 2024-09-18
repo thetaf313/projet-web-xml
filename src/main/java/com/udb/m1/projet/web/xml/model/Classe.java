@@ -3,30 +3,25 @@ package com.udb.m1.projet.web.xml.model;
 
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlTransient;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor
-
+@XmlRootElement(name = "classe")
 public class Classe {
 
-//    @XmlAttribute
     private long id;
-
-//    @XmlElement
     private String libelle;
-
-//    @XmlElement
     private String code;
-//    @XmlElement
     private int fraisInscription;
-//    @XmlElement
     private int mensualite;
-
     private Filiere filiere;
 
+    @XmlAttribute
     public long getId() {
         return id;
     }
@@ -35,6 +30,7 @@ public class Classe {
         this.id = id;
     }
 
+    @XmlElement
     public String getLibelle() {
         return libelle;
     }
@@ -43,6 +39,7 @@ public class Classe {
         this.libelle = libelle;
     }
 
+    @XmlElement
     public String getCode() {
         return code;
     }
@@ -51,6 +48,7 @@ public class Classe {
         this.code = code;
     }
 
+    @XmlElement
     public int getFraisInscription() {
         return fraisInscription;
     }
@@ -59,6 +57,7 @@ public class Classe {
         this.fraisInscription = fraisInscription;
     }
 
+    @XmlElement
     public int getMensualite() {
         return mensualite;
     }
@@ -67,6 +66,8 @@ public class Classe {
         this.mensualite = mensualite;
     }
 
+    // Pour eviter une boucle infinie lors de la serialisation
+    @XmlTransient
     public Filiere getFiliere() {
         return filiere;
     }

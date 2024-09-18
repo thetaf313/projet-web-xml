@@ -9,5 +9,5 @@ public interface FiliereService {
     Filiere getFiliere(Long filiereId);
     void addFiliere(Filiere filiere);
     void updateFiliere(Long filiereId, Filiere newFiliere);
-    boolean deleteFiliere(Long filiereId);
+    void deleteFiliere(Long filiereId);
 }

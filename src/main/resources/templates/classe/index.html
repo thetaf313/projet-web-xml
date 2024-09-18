@@ -34,7 +34,7 @@
 </header>
 <main>
     <div class="container">
-        <h1 class="text-center text-dark">Classes</h1>
+        <h1 class="text-center text-dark linear-heading ">Classes</h1>
         <div class="mb-3">
             <a th:href="@{/classes/add}" class="btn btn-primary btn-lg"><i class="fas fa-plus-circle"></i> Add Classe</a>
         </div>
@@ -63,7 +63,8 @@
                                 <td th:text="${classe.code}"></td>
                                 <td th:text="${classe.fraisInscription}"></td>
                                 <td th:text="${classe.mensualite}"></td>
-                                <td th:text="${classe.filiere.libelle}"></td>
+                                <td th:text="${classe.filiere != null ? classe.filiere.libelle : 'Aucune filière'}"></td>
+<!--                                <td th:text="${classe.filiere.libelle}"></td>-->
                                 <td>
                                     <a href="#" th:href="@{/classes/edit/{id} (id=${classe.id})}" class="px-2"><i class="fa-solid fa-pen-to-square fa-lg" style="color: #74C0FC;"></i></a>
                                     <a href="#" th:href="@{/classes/view/{id} (id=${classe.id})}" class="px-2"><i class="fa-regular fa-eye fa-lg" style="color: #FFD43B;"></i></a>
