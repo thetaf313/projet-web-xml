@@ -25,7 +25,8 @@ public class XMLService {
         try {
             File file = new File(FILE_PATH);
             if (!file.exists()) {
-                System.out.println("Fichier scolarite.xml introuvable. Création d'un nouveau fichier...");
+                System.out.println(
+                        "Fichier scolarite.xml introuvable. Création d'un nouveau fichier...");
                 createXMLFile();
             }
 
@@ -34,7 +35,8 @@ public class XMLService {
             return (Filieres) unmarshaller.unmarshal(file);
         } catch (IOException | JAXBException e) {
             e.printStackTrace();
-            throw new RuntimeException("Erreur lors du chargement des données depuis le fichier XML", e);
+            throw new RuntimeException(
+                    "Erreur lors du chargement des données depuis le fichier XML", e);
         }
     }
 
@@ -46,11 +48,14 @@ public class XMLService {
         try {
             JAXBContext jaxbContext = JAXBContext.newInstance(Filieres.class);
             Marshaller marshaller = jaxbContext.createMarshaller();
-            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);  // Formatage pour une sortie lisible
-            marshaller.marshal(filieres, new File(FILE_PATH));  // Enregistrement dans le fichier
+            // Formatage pour une sortie lisible
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+            // Enregistrement dans le fichier
+            marshaller.marshal(filieres, new File(FILE_PATH));
         } catch (JAXBException e) {
             e.printStackTrace();
-            throw new RuntimeException("Erreur lors de l'enregistrement des données dans le fichier XML", e);
+            throw new RuntimeException(
+                    "Erreur lors de l'enregistrement des données dans le fichier XML", e);
         }
     }
 
@@ -58,7 +63,8 @@ public class XMLService {
      * Crée un fichier XML avec une structure vide de filières.
      */
     public void createXMLFile() throws JAXBException, IOException {
-        Filieres filieres = new Filieres();  // Crée une structure de filières vide
-        save(filieres);  // Enregistre cette structure vide dans le fichier
+        Filieres filieres = new Filieres();
+        // Enregistrer
+        save(filieres);
     }
 }

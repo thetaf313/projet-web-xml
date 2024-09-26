@@ -26,7 +26,7 @@ public class ClasseServiceImpl implements ClasseService {
         Filieres listFilieres = xmlService.load();
 
         if (listFilieres == null || listFilieres.getFilieres() == null || listFilieres.getFilieres().isEmpty()) {
-            throw new RuntimeException("Erreur lors de la récupération des données");
+            return new ArrayList<>();
         }
 
         List<Classe> classes = new ArrayList<>();
@@ -91,6 +91,7 @@ public class ClasseServiceImpl implements ClasseService {
     public void addClasseToFiliere(Long filiereId, Classe classe) {
         Filieres listFilieres = xmlService.load();
         if (listFilieres == null) {
+            // retirer exception
             throw new RuntimeException("Erreur lors de la recuperation des données");
         }
 

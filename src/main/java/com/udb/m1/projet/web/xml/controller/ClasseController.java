@@ -7,6 +7,7 @@ import com.udb.m1.projet.web.xml.service.FiliereServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -22,10 +23,15 @@ public class ClasseController {
         this.filiereService = filiereService;
     }
 
-
     @GetMapping
     public String index(Model model) {
         List<Classe> classes = classeService.getAllClasses();
+
+        if (classes.isEmpty()) {
+            model.addAttribute("noClasseFound",
+                    "Aucune classe trouvée !");
+        }
+
         model.addAttribute("classes", classes);
         return "classe/index";
     }
@@ -36,13 +42,32 @@ public class ClasseController {
 
         // Récupérer la liste des filières disponibles
         List<Filiere> filieres = filiereService.getAllFilieres();
+        if (filieres.isEmpty()) {
+            model.addAttribute("warningMessage",
+                    "Aucune filiere trouvée. " +
+                            "Veuillez ajouter au moins une filiere !");
+        }
         model.addAttribute("filieres", filieres);
         return "classe/add-classe";
     }
 
     @PostMapping
-    public String create(@ModelAttribute Classe classe) {
-        classeService.addClasseToFiliere(classe.getFiliere().getId(), classe);
+    public String create(@ModelAttribute Classe classe,
+                         Model model,
+                         RedirectAttributes redirectAttributes) {
+        if (classe.getFiliere().getId() == 0) {
+            model.addAttribute("errorMessage",
+                    "Vous devez specifier une filiere");
+            return "classe/add-classe";
+        }
+        try {
+            classeService.addClasseToFiliere(classe.getFiliere().getId(), classe);
+            redirectAttributes.addFlashAttribute("successMessage",
+                    "CLasse ajoutée avec succés.");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("errorMessage",
+                    "Erreur lors de l'ajout de la classe.");
+        }
         return "redirect:/classes";
     }
 
@@ -59,8 +84,18 @@ public class ClasseController {
     }
 
     @PostMapping("/update/{id}")
-    public String update(@PathVariable Long id, @ModelAttribute Classe classe) {
-        classeService.updateClasse(id, classe);
+    public String update(@PathVariable Long id,
+                         @ModelAttribute Classe classe,
+                         RedirectAttributes redirectAttributes) {
+        try {
+            classeService.updateClasse(id, classe);
+            redirectAttributes.addFlashAttribute("successMessage",
+                    "Classe mise à jour avec succés.");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("errorMessage",
+                    "Erreur lors de la mise à jour.");
+
+        }
         return "redirect:/classes";
     }
 
@@ -76,8 +111,15 @@ public class ClasseController {
     }
 
     @GetMapping("/delete/{id}")
-    public String delete(@PathVariable Long id) {
-        classeService.deleteClasse(id);
+    public String delete(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        try {
+            classeService.deleteClasse(id);
+            redirectAttributes.addFlashAttribute("successMessage",
+                    "Classe supprimée avec succès.");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("errorMessage",
+                    "Erreur lors de la suppression de la classe");
+        }
         return "redirect:/classes";
     }
 }

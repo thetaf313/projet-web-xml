@@ -34,15 +34,47 @@
 </header>
 <main>
     <div class="container">
-        <h1 class="text-center text-dark linear-heading ">Classes</h1>
-        <div class="mb-3">
-            <a th:href="@{/classes/add}" class="btn btn-primary btn-lg"><i class="fas fa-plus-circle"></i> Add Classe</a>
+        <div class="d-flex justify-content-between align-items-center">
+            <h1 class="text-center text-dark linear-heading p-3">Classes</h1>
+            <!-- Toast Notification -->
+            <div aria-live="polite" aria-atomic="true" class="position-relative">
+                <div class="toast-container p-3" style="position: fixed; top: 70px; right: 10px;">
+
+                    <!-- Toast pour succes -->
+                    <div th:if="${successMessage}" class="toast align-items-center text-light bg-success border-0 show" role="alert" aria-live="assertive" aria-atomic="true">
+                        <div class="toast-header text-dark">
+                            <strong class="me-auto">Scholarite</strong>
+                            <small class="text-muted"></small>
+                        </div>
+                        <div class="d-flex">
+                            <div class="toast-body">
+                                <span th:text="${successMessage}"></span>
+                            </div>
+                            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                        </div>
+                    </div>
+
+                    <!-- Toast pour erreur -->
+                    <div th:if="${errorMessage}" class="toast align-items-center text-light bg-danger border-0 show" role="alert" aria-live="assertive" aria-atomic="true">
+                        <div class="d-flex">
+                            <div class="toast-body">
+                                <span th:text="${errorMessage}"></span>
+                            </div>
+                            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
         </div>
 
         <div class="row">
             <div class="col-lg-12">
+                <div class="mb-3">
+                    <a th:href="@{/classes/add}" class="btn btn-primary btn-lg"><i class="fas fa-plus-circle"></i> Add Classe</a>
+                </div>
                 <div th:switch="${classes}">
-                    <h2 th:case="null">Aucune Classe trouvée</h2>
+                    <h2 th:case="null" class="text-center">Aucune Classe trouvée</h2>
                     <div th:case="*">
                         <table class="table table-responsive-xl table-dark">
                             <thead>
@@ -73,6 +105,11 @@
                             </tr>
                             </tbody>
                         </table>
+                        <div class="w-50" th:if="${noClasseFound}" style="margin: 0 auto;">
+                            <div class="alert alert-dark" role="alert">
+                                <h4 class="alert-heading text-center" th:text="${noClasseFound}"></h4>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -83,5 +120,14 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.1/js/bootstrap.min.js" integrity="sha512-EKWWs1ZcA2ZY9lbLISPz8aGR2+L7JVYqBAYTq5AXgBkSjRSuQEGqWx8R1zAX16KdXPaCjOCaKE8MCpU0wcHlHA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/js/all.min.js" integrity="sha512-6sSYJqDreZRZGkJ3b+YfdhB3MzmuP9R7X1QZ6g5aIXhRvR1Y/N/P47jmnkENm7YL3oqsmI6AK+V6AD99uWDnIw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var toastElList = [].slice.call(document.querySelectorAll('.toast'))
+        var toastList = toastElList.map(function (toastEl) {
+            return new bootstrap.Toast(toastEl, { delay: 3000 });
+        });
+        toastList.forEach(toast => toast.show());
+    });
+</script>
 </body>
 </html>

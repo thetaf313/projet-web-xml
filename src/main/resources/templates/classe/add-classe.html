@@ -35,28 +35,50 @@
 <main>
     <div class="container">
         <h1 class="text-md-center">Classe</h1>
+        <div class="" th:if="${warningMessage}" style="width: 50%; margin: 0 auto;">
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <p th:text="${warningMessage}"></p>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                </button>
+                </hr>
+                <div class="mb-3">
+                    <a th:href="@{/filieres/add}" class="btn btn-primary btn-lg"><i class="fas fa-plus-circle"></i> Add Filiere</a>
+                </div>
+            </div>
+        </div>
+        <div class="" th:if="${errorMessage}">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <p th:text="${errorMessage}"></p>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                </button>
+                </hr>
+                <div class="mb-3">
+                    <a th:href="@{/filieres/add}" class="btn btn-primary btn-lg"><i class="fas fa-plus-circle"></i> Add Filiere</a>
+                </div>
+            </div>
+        </div>
         <div class="row flex-row justify-content-center align-content-center">
             <div class="col-6 p-3">
                 <form action="#" th:action="@{/classes}" th:object="${classe}" method="post">
                     <div class="mb-3">
                         <label for="libelle" class="form-label">Libelle</label>
-                        <input type="text" th:field="*{libelle}" class="form-control" id="libelle" aria-describedby="emailHelp">
+                        <input type="text" th:field="*{libelle}" class="form-control" id="libelle" aria-describedby="emailHelp" required>
                     </div>
                     <div class="mb-3">
                         <label for="code" class="form-label">Code</label>
-                        <input type="text" th:field="*{code}" class="form-control" id="code">
+                        <input type="text" th:field="*{code}" class="form-control" id="code" required>
                     </div>
                     <div class="mb-3">
                         <label for="fraisInscription" class="form-label">Frais Inscription</label>
-                        <input type="text" th:field="*{fraisInscription}" class="form-control" id="fraisInscription">
+                        <input type="text" th:field="*{fraisInscription}" class="form-control" id="fraisInscription" required>
                     </div>
                     <div class="mb-3">
                         <label for="mensualite" class="form-label">Mensualite</label>
-                        <input type="text" th:field="*{mensualite}" class="form-control" id="mensualite">
+                        <input type="text" th:field="*{mensualite}" class="form-control" id="mensualite" required>
                     </div>
                     <div class="mb-3">
-                        <select class="form-select" th:field="*{filiere.id}" aria-label="Default select example">
-                            <option value="0" disabled selected>Sélectionnez une filière</option>
+                        <select class="form-select" th:field="*{filiere.id}" aria-label="Default select example" required>
+                            <option value="0">Sélectionnez une filière</option>
                             <option th:each="filiere : ${filieres}" th:value="${filiere.id}" th:text="${filiere.libelle}"></option>
                         </select>
                     </div>

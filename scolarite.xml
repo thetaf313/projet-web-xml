@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <filieres>
     <filiere id="1">
-        <libelle>Génie logiciel</libelle>
+        <libelle>Genie logiciel</libelle>
         <classes>
             <classe id="1">
                 <code>M1GL</code>
                 <fraisInscription>100000</fraisInscription>
-                <libelle>Master 1 Génie Logiciel</libelle>
+                <libelle>Master 1 Genie logiciel</libelle>
                 <mensualite>80000</mensualite>
             </classe>
         </classes>
@@ -23,12 +23,12 @@
         </classes>
     </filiere>
     <filiere id="3">
-        <libelle>Systèmes, Réseaux et Télécoms</libelle>
+        <libelle>Systemes, Reseaux et Telecoms</libelle>
         <classes>
             <classe id="3">
                 <code>M1SRT</code>
                 <fraisInscription>100000</fraisInscription>
-                <libelle>Master 1 Systèmes, Réseaux et Télécoms</libelle>
+                <libelle>Master 1 Systemes, Reseaux et Telecoms</libelle>
                 <mensualite>80000</mensualite>
             </classe>
         </classes>

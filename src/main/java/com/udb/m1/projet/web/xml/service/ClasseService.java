@@ -5,7 +5,7 @@ import com.udb.m1.projet.web.xml.model.Classe;
 import java.util.List;
 
 public interface ClasseService {
-    List<Classe> getAllClasses();
+    List<Classe> getAllClasses() throws Exception;
     Classe getClasseById(Long classeId);
     List<Classe> getAllClassesByFiliere(Long filiereId);
     void addClasseToFiliere(Long filiereId, Classe classe);

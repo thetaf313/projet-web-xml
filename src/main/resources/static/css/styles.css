@@ -35,8 +35,10 @@ main {
 
 main .linear-heading {
     background: linear-gradient(rgba(47, 57, 116, 0.4), rgba(17, 26, 75, 0.5));
-    box-shadow: 6px 6px 10px #0D1332;
+    /*box-shadow: 6px 6px 10px #0D1332;*/
+    box-shadow: 5px 5px 0  #e3e3ee;
     margin-bottom: 30px;
+    /*padding: 10px;*/
     font-weight: bold;
     color: #0C1026 !important;
     border-radius: 10px;
@@ -80,6 +82,6 @@ form select {
     color: lightgrey !important;
 }
 
-/*.b-primary {*/
-/*    background-color: #873F97 !important;*/
-/*}*/
+table th {
+    color: #f4f5f6 !important;
+}
