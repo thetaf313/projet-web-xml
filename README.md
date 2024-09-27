@@ -1,6 +1,6 @@
 # Gestion des Filieres et des Classes
 
-Ce projet est une application web développée avec Spring Boot et Thymeleaf et xml. Il permet de gérer des filières et des classes, incluant des fonctionnalités CRUD (Créer, Lire, Mettre à jour, Supprimer) pour chaque entité. L'interface utilisateur est construite avec Bootstrap 5 et permet une navigation simple et intuitive.
+Ce projet est une application web développée avec Spring Boot et Thymeleaf. Il permet de gérer des filières et des classes, incluant des fonctionnalités CRUD (Créer, Lire, Mettre à jour, Supprimer) pour chaque entité. L'application utilise JAXB (Java Architecture for XML Binding) pour manipuler un fichier XML qui sert de base de données, facilitant la sérialisation et la désérialisation des objets Java en XML et inversement. Cela permet de stocker et de gérer les données de manière structurée sans utiliser de base de données relationnelle classique. L'interface utilisateur est construite avec Bootstrap 5, offrant une navigation simple et intuitive.
 
 ## Fonctionnalités
 
